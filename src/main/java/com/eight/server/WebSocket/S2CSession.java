@@ -2,9 +2,12 @@ package com.eight.server.WebSocket;
 
 import com.eight.server.Message.MessageBase;
 import com.eight.server.Protocol.Protocol;
+import com.eight.server.Scheduler.ScheduledItem;
+import com.eight.server.Scheduler.Scheduler;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
+import sun.font.TrueTypeFont;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -84,10 +87,22 @@ public class S2CSession {
 
     @OnClose
     public void onClose(){
-        List<S2CSession> sessions = sessionPool.get(userid);
-        sessions.remove(this);
-        if (sessions.size() == 0) { // 该用户与服务器不存在任意一个会话
-            // todo 计时，一定时间后用户还未创建新的连接则将userStatePool中的状态置为offline，表示用户下线
+        if (sessionState == SessionState.Initializing || sessionState == SessionState.LogingIn) {
+            tempSessionPool.remove(this);
+        } else {
+            List<S2CSession> sessions = sessionPool.get(userid);
+            sessions.remove(this);
+            if (sessions.size() == 0) { // 该用户与服务器不存在任意一个会话
+                // todo 计时，一定时间后用户还未创建新的连接则将userStatePool中的状态置为offline，表示用户下线
+                ScheduledItem item = new ScheduledItem(System.currentTimeMillis() + 5000, ()->{
+                    boolean bool = tempSessionPool.get(userid) == null || sessionPool.get(userid).size() == 0;
+                    if (bool) {
+                        setUserState(userid, UserState.Offline);
+                    }
+                    return true;
+                }); // 此处的5000后期可改为config读取
+                Scheduler.getInstance().PushItem(item);
+            }
         }
     }
 
