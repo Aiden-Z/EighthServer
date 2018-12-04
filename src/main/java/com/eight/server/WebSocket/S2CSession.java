@@ -12,6 +12,8 @@ import sun.font.TrueTypeFont;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,7 +33,7 @@ public class S2CSession {
         userStatePool.computeIfAbsent(userid, k -> userState);
     }
 
-    private Object str2DTO(String str) throws IOException{
+    private MessageBase str2DTO(String str) throws IOException{
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
@@ -43,11 +45,25 @@ public class S2CSession {
             e.printStackTrace();
         }
 
-        Object DTO = null;
+        MessageBase DTO = null;
         if (objectType != null) {
-            DTO = mapper.readValue(str, objectType);
+            DTO = (MessageBase) mapper.readValue(str, objectType);
         }
         return DTO;
+    }
+
+    public void loginSession(String userid) { // 当登录消息校验完成后执行
+        this.userid = userid;
+        tempSessionPool.remove(session.getId());
+        List<S2CSession> list;
+        list = sessionPool.computeIfAbsent(userid, k-> Collections.synchronizedList(new LinkedList<>()));
+        list.add(this);
+        setUserState(userid, UserState.Online);
+        this.sessionState = SessionState.Online;
+    }
+
+    public boolean compareSessionState(SessionState state) {
+        return state == sessionState;
     }
 
     @OnOpen
@@ -55,20 +71,9 @@ public class S2CSession {
         System.out.println("userid : " + session.getId() + " connected");
         this.session = session;
         this.userid = session.getId();// 先用session的id暂时代替用户id
+        this.userSessionID = Integer.parseInt(session.getId());// 将生成的ID填入sessionID用做辨别同用户的不同会话
         sessionState = SessionState.LogingIn;
         tempSessionPool.put(session.getId(), this); // 刚连接放入temp池
-//        List<S2CSession> list;
-//        list = sessionPool.computeIfAbsent(userid, k -> Collections.synchronizedList(new LinkedList<>()));
-//
-//        if (list.size() == 0) {
-//            this.userSessionID = 0;
-//            list.add(this);
-//        } else {
-//            this.userSessionID = list.get(list.size() - 1).userSessionID + 1;
-//            list.add(this);
-//        }
-//
-//        setUserState(userid, UserState.Online);
     }
 
     @OnMessage
@@ -76,11 +81,12 @@ public class S2CSession {
         System.out.println(message);
         MessageBase content = null;
         try {
-            content = (MessageBase) str2DTO(message);
+            content = str2DTO(message);
         } catch (IOException e) {
             e.printStackTrace();
         }
         if (content != null) {
+            content.handleMessage(this);
             System.out.println(content.toString());
         }
     }
