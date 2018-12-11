@@ -11,6 +11,7 @@ public class MsgLogin extends MessageBase {
         // 假设成功
         JSONObject jsonObject = new JSONObject(this.getContent());
         String userid = jsonObject.getString("userid");
+        System.out.println("user id: " + userid + " logged in");
         if (session.compareSessionState(SessionState.LogingIn)){
             session.loginSession(userid);
         }

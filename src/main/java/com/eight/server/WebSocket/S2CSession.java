@@ -98,12 +98,17 @@ public class S2CSession {
         } else {
             List<S2CSession> sessions = sessionPool.get(userid);
             sessions.remove(this);
+            System.out.println("user id: " + userid + " session id: " + userSessionID + " had been removed");
+            sessionState = SessionState.Offline;
             if (sessions.size() == 0) { // 该用户与服务器不存在任意一个会话
-                // todo 计时，一定时间后用户还未创建新的连接则将userStatePool中的状态置为offline，表示用户下线
+                System.out.println("user id: " + userid + " had been put in scheduler");
                 ScheduledItem item = new ScheduledItem(System.currentTimeMillis() + 5000, ()->{
-                    boolean bool = tempSessionPool.get(userid) == null || sessionPool.get(userid).size() == 0;
+                    boolean bool = sessionPool.get(userid).size() == 0;
                     if (bool) {
                         setUserState(userid, UserState.Offline);
+                        System.out.println("user id: " + userid + " had been kicked out");
+                    } else {
+                        System.out.println("user id: " + userid + " hadn't been kicked out because he has a connecting connection");
                     }
                     return true;
                 }); // 此处的5000后期可改为config读取

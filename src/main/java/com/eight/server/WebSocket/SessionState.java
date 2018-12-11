@@ -4,4 +4,5 @@ public enum SessionState {
     Initializing,
     LogingIn,
     Online,
+    Offline,
 }
