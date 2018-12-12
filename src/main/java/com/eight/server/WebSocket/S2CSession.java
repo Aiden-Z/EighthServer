@@ -7,7 +7,6 @@ import com.eight.server.Scheduler.Scheduler;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
-import sun.font.TrueTypeFont;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -33,6 +32,7 @@ public class S2CSession {
         userStatePool.computeIfAbsent(userid, k -> userState);
     }
 
+    @SuppressWarnings("unchecked")
     private MessageBase str2DTO(String str) throws IOException{
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
@@ -121,6 +121,11 @@ public class S2CSession {
     public void onError(Session session, Throwable error) {
         System.out.println(userid + "'s connection occurred some error. userSessionID: " + userSessionID);
         error.printStackTrace();
+        try {
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void sendMessage(String message){
