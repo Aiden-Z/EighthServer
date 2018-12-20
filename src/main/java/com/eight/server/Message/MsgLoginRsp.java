@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 public class MsgLoginRsp extends MessageRspBase{
     public MsgLoginRsp(int id, String content) {
-        this.setId(id);
-        this.setContent(content);
+        super(id, content);
     }
 }

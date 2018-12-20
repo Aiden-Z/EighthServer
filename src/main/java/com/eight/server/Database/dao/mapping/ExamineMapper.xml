@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eight.server.Database.dao.ExamineMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.eight.server.Database.entity.Examine">
+        <id column="eno" property="eno" />
+        <result column="sno" property="sno" />
+        <result column="cno" property="cno" />
+        <result column="ino" property="ino" />
+        <result column="edept" property="edept" />
+        <result column="etime" property="etime" />
+        <result column="eresult" property="eresult" />
+        <result column="feedbacktime" property="feedbacktime" />
+        <result column="feedbackresult" property="feedbackresult" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        eno, sno, cno, ino, edept, etime, eresult, feedbacktime, feedbackresult
+    </sql>
+
+</mapper>

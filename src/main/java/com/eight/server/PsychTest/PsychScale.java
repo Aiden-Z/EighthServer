@@ -3,18 +3,21 @@ package com.eight.server.PsychTest;
 import java.util.ArrayList;
 
 public class PsychScale {
-    private int identifier;
+    private String identifier;
     private String name;
     private String type;
     private ArrayList<PsychQuestion> psychQuestions;
     private String psychScaleDescription;
 
-    public PsychScale(int identifiers,String name, String psychScaleDescription,String type) {
+    public PsychScale() {
+    }
+
+    public PsychScale(String identifiers, String name, String psychScaleDescription, String type, ArrayList<PsychQuestion> psychQuestions) {
         this.identifier = identifiers;
         this.name = name;
         this.psychScaleDescription = psychScaleDescription;
         this.type = type;
-        psychQuestions = PsychScaleCache.getInstance().getQuestions(identifier);
+        this.psychQuestions = psychQuestions;
     }
 
     public String getPsychScaleDescription() {
@@ -33,11 +36,11 @@ public class PsychScale {
         this.psychQuestions = psychQuestions;
     }
 
-    public int getIdentifier() {
+    public String getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(int identifier) {
+    public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
 

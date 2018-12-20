@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eight.server.Database.dao.TestMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.eight.server.Database.entity.Test">
+        <id column="tno" property="tno" />
+        <result column="sno" property="sno" />
+        <result column="cno" property="cno" />
+        <result column="scno" property="scno" />
+        <result column="tscore" property="tscore" />
+        <result column="tresult" property="tresult" />
+        <result column="ttime" property="ttime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        tno, sno, cno, scno, tscore, tresult, ttime
+    </sql>
+
+</mapper>

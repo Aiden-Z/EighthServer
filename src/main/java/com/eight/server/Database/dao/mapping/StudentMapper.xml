@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eight.server.Database.dao.StudentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.eight.server.Database.entity.Student">
+        <id column="sno" property="sno" />
+        <result column="sname" property="sname" />
+        <result column="sdept" property="sdept" />
+        <result column="sphone" property="sphone" />
+        <result column="sclass" property="sclass" />
+        <result column="scon" property="scon" />
+        <result column="sconph" property="sconph" />
+        <result column="spwd" property="spwd" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        sno, sname, sdept, sphone, sclass, scon, sconph, spwd
+    </sql>
+
+</mapper>

@@ -10,8 +10,11 @@ public class Protocol {
         InputStream inputStream = this.getClass().getResourceAsStream("/static/ProtocolConfig");
         if (inputStream != null) {
             Scanner scanner = new Scanner(inputStream);
-            String str = scanner.next();
-            this.protocolMap= new JSONObject(str);
+            StringBuilder stringBuilder = new StringBuilder();
+            while (scanner.hasNext()) {
+                stringBuilder.append(scanner.next());
+            }
+            this.protocolMap = new JSONObject(stringBuilder.toString());
         }
     }
 

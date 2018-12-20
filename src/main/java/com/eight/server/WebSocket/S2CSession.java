@@ -1,9 +1,11 @@
 package com.eight.server.WebSocket;
 
+import com.alibaba.fastjson.JSONObject;
 import com.eight.server.Message.MessageBase;
 import com.eight.server.Protocol.Protocol;
 import com.eight.server.Scheduler.ScheduledItem;
 import com.eight.server.Scheduler.Scheduler;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
@@ -32,14 +34,26 @@ public class S2CSession {
         userStatePool.computeIfAbsent(userid, k -> userState);
     }
 
+
+    private boolean isjson(String string){
+        try {
+            JSONObject jsonStr= JSONObject.parseObject(string);
+            return  true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     @SuppressWarnings("unchecked")
     private MessageBase str2DTO(String str) throws IOException{
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-
-        MessageBase msg = mapper.readValue(str, MessageBase.class);
+        if (!isjson(str)) {
+            return null;
+        }
         Class objectType = null;
         try {
+            MessageBase msg = mapper.readValue(str, MessageBase.class);
             objectType = Class.forName(Protocol.getInstance().get(msg.getId().toString()));
         }catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -95,6 +109,7 @@ public class S2CSession {
     public void onClose(){
         if (sessionState == SessionState.Initializing || sessionState == SessionState.LogingIn) {
             tempSessionPool.remove(this);
+            System.out.println("user id: " + userid + " session id: " + userSessionID + " had been removed");
         } else {
             List<S2CSession> sessions = sessionPool.get(userid);
             sessions.remove(this);

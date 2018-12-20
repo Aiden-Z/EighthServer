@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MsgRegisterRsp extends MessageRspBase {
     public MsgRegisterRsp(int id, String content) {
-        this.setId(id);
-        this.setContent(content);
+        super(id, content);
     }
 }

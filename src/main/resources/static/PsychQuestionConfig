@@ -1,0 +1,67 @@
+{
+  "-1":{
+    "identifier": "-1",
+    "name": "test name",
+    "desc": "test desc",
+    "type": "test type",
+    "questions": [
+      {"questionContent": "test1"},{"questionContent": "test2"},{"questionContent": "test3"},{"questionContent": "test4"},{"questionContent": "test5"},{"questionContent": "test6"},{"questionContent": "test7"},{"questionContent": "test8"}
+    ]
+  },
+  "scl90":{
+    "identifier": "scl90",
+    "name": "心理测评量表",
+    "desc": "以下列出了有些人可能会有的问题，请仔细地阅读每一条，然后根据最近一星期以内下述情况。影响您的实际感觉，在每个问题后标明该题的程度得分。其中，“没有”选1，“很轻”选2，“中等”选3,“偏重”选4，“严重”选5。",
+    "type": "test type",
+    "questions": [
+      {"questionContent": "头痛。"},
+      {"questionContent": "神经过敏，心中不踏实。"},
+      {"questionContent": "头脑中有不必要的想法或字句盘旋。"},
+      {"questionContent": "头昏或昏倒。"},
+      {"questionContent": "对异性的兴趣减退。"},
+      {"questionContent": "对旁人责备求全。"},
+      {"questionContent": "感到别人能控制您的思想。"},
+      {"questionContent": "责怪别人制造麻烦。"}
+    ]
+  },
+  "self-assessment":{
+    "identifier": "self-assessment",
+    "name": "自我评估",
+    "desc": "请依最近两个周以来（包括今天）所感受的状况和想法完成下列自评（程度从0-10,0为最低，10为最高。）",
+    "type": "test type",
+    "questions": [
+      {"questionContent": "我最近容易悲伤哭泣"},
+      {"questionContent": "我最近睡眠变少或变多"},
+      {"questionContent": "我最近对很多事失去兴趣"},
+      {"questionContent": "我最近吃的东西变多或变少"},
+      {"questionContent": "我最近常有罪恶感"},
+      {"questionContent": "我觉得身体无力"},
+      {"questionContent": "我最近容易自我批评"},
+      {"questionContent": "我觉得自己没有价值"},
+      {"questionContent": "我最近变得容易疲倦 "},
+      {"questionContent": "我有想自杀的念头"},
+      {"questionContent": "目前感受到的痛苦程度"},
+      {"questionContent": "咨询意愿"}
+    ]
+  },
+  "CCSMHS":{
+    "identifier": "CCSMHS",
+    "name": "中国大学生心理健康量表",
+    "desc": "大学生心理健康筛查量表(College Students Mental Health Screening Scale)共96个项目，分为三级筛查，共22个筛查指标。一级筛查为严重心理问题筛查，包括幻觉等严重精神病性症状、自杀行为与意向两个指标;二级筛查为一般心理问题筛查，分为内化心理问题和外化心理问题两类，其中内化心理问题包括了焦虑、抑郁、偏执、自卑、敏感、社交恐惧、躯体化七个指标，外化心理问题包括了依赖、敌对攻击、冲动、强迫、网络成瘾、自伤行为、进食问题、睡眠困扰八个指标;三级筛查为发展性困扰筛查，包括了学校适应困难、人际关系困扰、学业压力、就业压力、恋爱困扰五个指标。其中一级和二级筛查为学生心理健康问题筛查的核心，而三级筛查主要反映学生心理困扰的来源以及提示可能的潜在心理问题，可供各高校自愿选用。",
+    "type": "test type",
+    "questions": [
+      {"questionContent": "我情绪忽高忽低"},
+      {"questionContent": "做什么事我都感觉很困难"},
+      {"questionContent": "我喜欢与人争论、抬杠"},
+      {"questionContent": "我对许多事情心烦"},
+      {"questionContent": "遇到紧急的事我手发抖"},
+      {"questionContent": "我怕应付麻烦的事"},
+      {"questionContent": "我情绪低落"},
+      {"questionContent": "我感到人们对我不公平"},
+      {"questionContent": "我觉得大多数人都不可信"},
+      {"questionContent": "感到别人对我不友好"},
+      {"questionContent": "我不能控制自己发脾气"},
+      {"questionContent": "我感到前途没有希望"}
+    ]
+  }
+}
