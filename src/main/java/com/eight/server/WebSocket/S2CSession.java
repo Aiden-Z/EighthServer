@@ -1,6 +1,5 @@
 package com.eight.server.WebSocket;
 
-import com.alibaba.fastjson.JSONObject;
 import com.eight.server.Message.MessageBase;
 import com.eight.server.Protocol.Protocol;
 import com.eight.server.Scheduler.ScheduledItem;
@@ -8,10 +7,12 @@ import com.eight.server.Scheduler.Scheduler;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
+import javax.xml.stream.events.DTD;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -37,7 +38,7 @@ public class S2CSession {
 
     private boolean isjson(String string){
         try {
-            JSONObject jsonStr= JSONObject.parseObject(string);
+            com.alibaba.fastjson.JSONObject jsonStr= com.alibaba.fastjson.JSONObject.parseObject(string);
             return  true;
         } catch (Exception e) {
             return false;
@@ -46,23 +47,30 @@ public class S2CSession {
 
     @SuppressWarnings("unchecked")
     private MessageBase str2DTO(String str) throws IOException{
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         if (!isjson(str)) {
             return null;
         }
-        Class objectType = null;
+        JSONObject jsonObject = new JSONObject(str);
+        int id = jsonObject.getInt("id");
+        JSONObject content = jsonObject.getJSONObject("content");
+
+        Class objectType;
+        Object o = null;
         try {
-            MessageBase msg = mapper.readValue(str, MessageBase.class);
-            objectType = Class.forName(Protocol.getInstance().get(msg.getId().toString()));
+            objectType = Class.forName(Protocol.getInstance().get(Integer.toString(id)));
+            if (objectType != null) {
+                o = objectType.newInstance();
+            }
         }catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }
+        }catch (InstantiationException e) {
 
-        MessageBase DTO = null;
-        if (objectType != null) {
-            DTO = (MessageBase) mapper.readValue(str, objectType);
+        }catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
+        MessageBase DTO = (MessageBase)o;
+        DTO.setId(id);
+        DTO.setContent(content.toString());
         return DTO;
     }
 

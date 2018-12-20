@@ -17,14 +17,17 @@ public class MsgLogin extends MessageBase {
             case "student":
             {
                 studentLogin(jsonObject, session);
+                break;
             }
             case "consultant":
             {
                 consultantLogin(jsonObject, session);
+                break;
             }
             case "instructor":
             {
                 instructorLogin(jsonObject, session);
+                break;
             }
         }
     }
@@ -34,7 +37,7 @@ public class MsgLogin extends MessageBase {
         String pwd = jsonObject.getString("passward");
         Student student = new Student();
         student.setSno(userid);
-        student.selectOne(new EntityWrapper<Student>().eq("sname",userid));
+        student = student.selectOne(new EntityWrapper<Student>().eq("sname",userid));
         if (student.getSpwd().equals(pwd)) {
             System.out.println("user id: " + userid + " logged in");
             if (session.compareSessionState(SessionState.LogingIn)){
