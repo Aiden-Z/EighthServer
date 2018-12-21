@@ -27,7 +27,7 @@ public class MsgQueryStudent extends MessageBase {
         List<Student> students = student.selectList(new EntityWrapper<Student>().eq("sclass","高危"));
         JSONObject result = new JSONObject();
         result.put("dangerousStudents", students);
-        MsgQueryStudentRsp msgQueryStudentRsp = new MsgQueryStudentRsp(getId() + 1, result.toString());
+        MsgQueryStudentRsp msgQueryStudentRsp = new MsgQueryStudentRsp(0, result);
         session.sendMessage(msgQueryStudentRsp.toJson());
     }
 
@@ -38,7 +38,7 @@ public class MsgQueryStudent extends MessageBase {
         students.removeIf(t->!t.getSdept().equals(idept));
         JSONObject result = new JSONObject();
         result.put("dangerousStudents", students);
-        MsgQueryStudentRsp msgQueryStudentRsp = new MsgQueryStudentRsp(getId() + 1, result.toString());
+        MsgQueryStudentRsp msgQueryStudentRsp = new MsgQueryStudentRsp(0, result);
         session.sendMessage(msgQueryStudentRsp.toJson());
     }
 

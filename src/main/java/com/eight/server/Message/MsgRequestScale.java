@@ -23,7 +23,7 @@ public class MsgRequestScale extends MessageBase { // 用于客户端请求量�
             e.printStackTrace();
         }
 
-        MsgRequestScaleRsp msgRequestScaleRsp = new MsgRequestScaleRsp(getId() + 1, scale);
+        MsgRequestScaleRsp msgRequestScaleRsp = new MsgRequestScaleRsp(0, new JSONObject(scale));
         s2CSession.sendMessage(msgRequestScaleRsp.toJson());
     }
 }

@@ -11,7 +11,7 @@ import org.json.JSONObject;
 public class MsgLogin extends MessageBase {
     @Override
     public void handleMessage(S2CSession session) {
-        JSONObject jsonObject = new JSONObject(this.getContent());
+        JSONObject jsonObject = getContent();
         String type = jsonObject.getString("type");
         switch (type) {
             case "student":
@@ -33,8 +33,8 @@ public class MsgLogin extends MessageBase {
     }
 
     private void studentLogin(JSONObject jsonObject, S2CSession session) {
-        String userid = jsonObject.getString("userid");
-        String pwd = jsonObject.getString("passward");
+        String userid = jsonObject.getString("username");
+        String pwd = jsonObject.getString("password");
         Student student = new Student();
         student.setSno(userid);
         student = student.selectOne(new EntityWrapper<Student>().eq("sname",userid));
@@ -43,23 +43,18 @@ public class MsgLogin extends MessageBase {
             if (session.compareSessionState(SessionState.LogingIn)){
                 session.loginSession(userid);
             }
-            JSONObject temp = new JSONObject();
-            temp.put("userid", userid);
-            temp.put("result", true);
-            MsgLoginRsp msgLoginRsp = new MsgLoginRsp(this.getId() + 1, temp.toString());
+            MsgLoginRsp msgLoginRsp = new MsgLoginRsp(0, getContent());
             session.sendMessage(msgLoginRsp.toJson());
         }else {
-            JSONObject temp = new JSONObject();
-            temp.put("userid", userid);
-            temp.put("result", false);
-            MsgLoginRsp msgLoginRsp = new MsgLoginRsp(this.getId() + 1, temp.toString());
+            jsonObject.put("password", student.getSpwd());
+            MsgLoginRsp msgLoginRsp = new MsgLoginRsp(0, getContent());
             session.sendMessage(msgLoginRsp.toJson());
         }
 
     }
     private void consultantLogin(JSONObject jsonObject, S2CSession session) {
-        String userid = jsonObject.getString("userid");
-        String pwd = jsonObject.getString("passward");
+        String userid = jsonObject.getString("username");
+        String pwd = jsonObject.getString("password");
         Consultant consultant = new Consultant();
         consultant.setCno(userid);
         consultant.selectOne(new EntityWrapper<Student>().eq("sname",userid));
@@ -68,22 +63,17 @@ public class MsgLogin extends MessageBase {
             if (session.compareSessionState(SessionState.LogingIn)){
                 session.loginSession(userid);
             }
-            JSONObject temp = new JSONObject();
-            temp.put("userid", userid);
-            temp.put("result", true);
-            MsgLoginRsp msgLoginRsp = new MsgLoginRsp(this.getId() + 1, temp.toString());
+            MsgLoginRsp msgLoginRsp = new MsgLoginRsp(0, getContent());
             session.sendMessage(msgLoginRsp.toJson());
         }else {
-            JSONObject temp = new JSONObject();
-            temp.put("userid", userid);
-            temp.put("result", false);
-            MsgLoginRsp msgLoginRsp = new MsgLoginRsp(this.getId() + 1, temp.toString());
+            jsonObject.put("password", consultant.getCpwd());
+            MsgLoginRsp msgLoginRsp = new MsgLoginRsp(0, getContent());
             session.sendMessage(msgLoginRsp.toJson());
         }
     }
     private void instructorLogin(JSONObject jsonObject, S2CSession session) {
-        String userid = jsonObject.getString("userid");
-        String pwd = jsonObject.getString("passward");
+        String userid = jsonObject.getString("username");
+        String pwd = jsonObject.getString("password");
         Instructor instructor = new Instructor();
         instructor.setIno(userid);
         instructor.selectOne(new EntityWrapper<Student>().eq("sname",userid));
@@ -92,16 +82,11 @@ public class MsgLogin extends MessageBase {
             if (session.compareSessionState(SessionState.LogingIn)){
                 session.loginSession(userid);
             }
-            JSONObject temp = new JSONObject();
-            temp.put("userid", userid);
-            temp.put("result", true);
-            MsgLoginRsp msgLoginRsp = new MsgLoginRsp(this.getId() + 1, temp.toString());
+            MsgLoginRsp msgLoginRsp = new MsgLoginRsp(0, getContent());
             session.sendMessage(msgLoginRsp.toJson());
         }else {
-            JSONObject temp = new JSONObject();
-            temp.put("userid", userid);
-            temp.put("result", false);
-            MsgLoginRsp msgLoginRsp = new MsgLoginRsp(this.getId() + 1, temp.toString());
+            jsonObject.put("password", instructor.getIpwd());
+            MsgLoginRsp msgLoginRsp = new MsgLoginRsp(0, getContent());
             session.sendMessage(msgLoginRsp.toJson());
         }
     }

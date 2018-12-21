@@ -30,7 +30,7 @@ public class MsgScaleResult extends MessageBase {// 填写量表结果
         student.setSclass(classes[100 / score]);
         JSONObject result = new JSONObject();
         result.put("result", true);
-        MsgScaleResultRsp msgScaleResultRsp = new MsgScaleResultRsp(getId() + 1, result.toString());
+        MsgScaleResultRsp msgScaleResultRsp = new MsgScaleResultRsp(0, result);
         s2CSession.sendMessage(msgScaleResultRsp.toJson());
     }
 }

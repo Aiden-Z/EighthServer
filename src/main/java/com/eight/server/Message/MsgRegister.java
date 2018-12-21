@@ -55,31 +55,28 @@ public class MsgRegister extends MessageBase{
             temp.put("userid", userid);
             temp.put("result", false);
         }
-        MsgRegisterRsp msgRegisterRsp = new MsgRegisterRsp(this.getId() + 1, temp.toString());
+        MsgRegisterRsp msgRegisterRsp = new MsgRegisterRsp(0, temp);
         session.sendMessage(msgRegisterRsp.toJson());
     }
     private void registerConsultant(JSONObject jsonObject, S2CSession session) {
-        String userid = jsonObject.getString("userid");
-        String phone = jsonObject.getString("phone");
-        String pwd = jsonObject.getString("passward");
+        String userid = jsonObject.getString("admiNo");
+        String pwd = jsonObject.getString("password");
         Consultant consultant = new Consultant();
         consultant.setCno(userid);
         consultant = consultant.selectOne(new EntityWrapper<Consultant>().eq("Cname",userid));
         JSONObject temp = new JSONObject();
         if (consultant == null) {
-            temp.put("userid", userid);
-            temp.put("result", true);
             consultant = new Consultant();
             consultant.setCno(userid);
             consultant.setCname("empty");
-            consultant.setCphone(phone);
+            consultant.setCphone("empty");
             consultant.setCpwd(pwd);
             consultant.insert();
         } else {
             temp.put("userid", userid);
             temp.put("result", false);
         }
-        MsgRegisterRsp msgRegisterRsp = new MsgRegisterRsp(this.getId() + 1, temp.toString());
+        MsgRegisterRsp msgRegisterRsp = new MsgRegisterRsp(0, temp);
         session.sendMessage(msgRegisterRsp.toJson());
     }
 
@@ -105,7 +102,7 @@ public class MsgRegister extends MessageBase{
             temp.put("userid", userid);
             temp.put("result", false);
         }
-        MsgRegisterRsp msgRegisterRsp = new MsgRegisterRsp(this.getId() + 1, temp.toString());
+        MsgRegisterRsp msgRegisterRsp = new MsgRegisterRsp(0, temp);
         session.sendMessage(msgRegisterRsp.toJson());
     }
 }

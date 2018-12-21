@@ -39,6 +39,9 @@ public class S2CSession {
     private boolean isjson(String string){
         try {
             com.alibaba.fastjson.JSONObject jsonStr= com.alibaba.fastjson.JSONObject.parseObject(string);
+            if (string.charAt(0) != '{') {
+                return false;
+            }
             return  true;
         } catch (Exception e) {
             return false;
@@ -51,13 +54,13 @@ public class S2CSession {
             return null;
         }
         JSONObject jsonObject = new JSONObject(str);
-        int id = jsonObject.getInt("id");
-        JSONObject content = jsonObject.getJSONObject("content");
+        String master = jsonObject.getString("master");
+        JSONObject content = jsonObject;
 
         Class objectType;
         Object o = null;
         try {
-            objectType = Class.forName(Protocol.getInstance().get(Integer.toString(id)));
+            objectType = Class.forName(Protocol.getInstance().get(master));
             if (objectType != null) {
                 o = objectType.newInstance();
             }
@@ -69,8 +72,8 @@ public class S2CSession {
             e.printStackTrace();
         }
         MessageBase DTO = (MessageBase)o;
-        DTO.setId(id);
-        DTO.setContent(content.toString());
+        DTO.setId(master);
+        DTO.setContent(content);
         return DTO;
     }
 

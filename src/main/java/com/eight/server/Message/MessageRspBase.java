@@ -10,23 +10,15 @@ import org.json.JSONObject;
 // 此为消息体基类，所有发送至客户端消息都需要继承自此消息
 public class MessageRspBase {
     private Integer id; // 消息号
-    private String content; // 消息体
+    private JSONObject content; // 消息体
 
-    public MessageRspBase(Integer id, String content) {
+    public MessageRspBase(Integer id, JSONObject content) {
         this.id = id;
         this.content = content;
     }
 
     public String toJson(){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        String temp= null;
-        try {
-            temp = mapper.writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return temp;
+        return content.toString();
     }
 
     @Override
@@ -40,11 +32,11 @@ public class MessageRspBase {
         this.id = id;
     }
 
-    public void setContent(String content) {
+    public void setContent(JSONObject content) {
         this.content = content;
     }
 
-    public String getContent() {
+    public JSONObject getContent() {
         return content;
     }
 }

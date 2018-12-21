@@ -1,6 +1,6 @@
 {
   "0": "com.eight.server.Message.MessageBase",
-  "2": "com.eight.server.Message.MsgLogin",
+  "studentin": "com.eight.server.Message.MsgLogin",
   "4": "com.eight.server.Message.MsgRegister",
   "6": "com.eight.server.Message.MsgRequestScale",
   "8": "com.eight.server.Message.MsgAddScale",

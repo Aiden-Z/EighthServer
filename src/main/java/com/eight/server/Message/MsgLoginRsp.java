@@ -8,7 +8,7 @@ import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONObject;
 
 public class MsgLoginRsp extends MessageRspBase{
-    public MsgLoginRsp(int id, String content) {
+    public MsgLoginRsp(int id, JSONObject content) {
         super(id, content);
     }
 }

@@ -24,7 +24,7 @@ public class MsgQueryTest extends MessageBase { // 用于查询某学生测试�
         result.put("consultantNo", cno);
         result.put("tests", tests);
 
-        MsgQueryTestRsp msgQueryTestRsp = new MsgQueryTestRsp(this.getId() + 1, result.toString());
+        MsgQueryTestRsp msgQueryTestRsp = new MsgQueryTestRsp(0, result);
         s2CSession.sendMessage(msgQueryTestRsp.toJson());
     }
 }
