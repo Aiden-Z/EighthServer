@@ -39,6 +39,9 @@ public class S2CSession {
     private boolean isjson(String string){
         try {
             com.alibaba.fastjson.JSONObject jsonStr= com.alibaba.fastjson.JSONObject.parseObject(string);
+            if (string.charAt(0) != '{') {
+                return false;
+            }
             return  true;
         } catch (Exception e) {
             return false;

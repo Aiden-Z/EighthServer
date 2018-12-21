@@ -38,7 +38,7 @@ public class MsgLogin extends MessageBase {
         Student student = new Student();
         student.setSno(userid);
         student = student.selectOne(new EntityWrapper<Student>().eq("sname",userid));
-        if (student.getSpwd().equals(pwd)) {
+        if (student != null && student.getSpwd().equals(pwd)) {
             System.out.println("user id: " + userid + " logged in");
             if (session.compareSessionState(SessionState.LogingIn)){
                 session.loginSession(userid);
@@ -62,8 +62,8 @@ public class MsgLogin extends MessageBase {
         String pwd = jsonObject.getString("password");
         Consultant consultant = new Consultant();
         consultant.setCno(userid);
-        consultant.selectOne(new EntityWrapper<Student>().eq("sname",userid));
-        if (consultant.getCpwd().equals(pwd)) {
+        consultant = consultant.selectOne(new EntityWrapper<Student>().eq("sname",userid));
+        if (consultant != null && consultant.getCpwd().equals(pwd)) {
             System.out.println("user id: " + userid + " logged in");
             if (session.compareSessionState(SessionState.LogingIn)){
                 session.loginSession(userid);
@@ -86,8 +86,8 @@ public class MsgLogin extends MessageBase {
         String pwd = jsonObject.getString("password");
         Instructor instructor = new Instructor();
         instructor.setIno(userid);
-        instructor.selectOne(new EntityWrapper<Student>().eq("sname",userid));
-        if (instructor.getIpwd().equals(pwd)) {
+        instructor = instructor.selectOne(new EntityWrapper<Student>().eq("sname",userid));
+        if (instructor != null && instructor.getIpwd().equals(pwd)) {
             System.out.println("user id: " + userid + " logged in");
             if (session.compareSessionState(SessionState.LogingIn)){
                 session.loginSession(userid);
