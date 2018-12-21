@@ -34,7 +34,7 @@ public class MsgRegister extends MessageBase{
     private void registerStudent(JSONObject jsonObject, S2CSession session) {
         String userid = jsonObject.getString("userid");
         String phone = jsonObject.getString("phone");
-        String pwd = jsonObject.getString("passward");
+        String pwd = jsonObject.getString("password");
         Student student = new Student();
         student.setSno(userid);
         student = student.selectOne(new EntityWrapper<Student>().eq("sname",userid));
@@ -61,7 +61,7 @@ public class MsgRegister extends MessageBase{
     private void registerConsultant(JSONObject jsonObject, S2CSession session) {
         String userid = jsonObject.getString("userid");
         String phone = jsonObject.getString("phone");
-        String pwd = jsonObject.getString("passward");
+        String pwd = jsonObject.getString("password");
         Consultant consultant = new Consultant();
         consultant.setCno(userid);
         consultant = consultant.selectOne(new EntityWrapper<Consultant>().eq("Cname",userid));
@@ -86,7 +86,7 @@ public class MsgRegister extends MessageBase{
     private void registerInstructor(JSONObject jsonObject, S2CSession session) {
         String userid = jsonObject.getString("userid");
         String phone = jsonObject.getString("phone");
-        String pwd = jsonObject.getString("passward");
+        String pwd = jsonObject.getString("password");
         Instructor instructor = new Instructor();
         instructor.setIno(userid);
         instructor = instructor.selectOne(new EntityWrapper<Consultant>().eq("Cname",userid));

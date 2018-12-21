@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class S2CSession {
     private Session session;
     private String userid;
-    private int userSessionID;// 单用户不重复，多用户可重复，用于在用户多开时确定
+    private String userSessionID;// 单用户不重复，多用户可重复，用于在用户多开时确定
     private SessionState sessionState = SessionState.Initializing;
     private static Map<String, List<S2CSession>> sessionPool = new ConcurrentHashMap<>(); // key是用户名，value是该用户名下所有的连接
     private static Map<String, UserState> userStatePool = new ConcurrentHashMap<>(); // 存放用户状态(这里可以做成一个单例)
@@ -93,7 +93,7 @@ public class S2CSession {
         System.out.println("userid : " + session.getId() + " connected");
         this.session = session;
         this.userid = session.getId();// 先用session的id暂时代替用户id
-        this.userSessionID = Integer.parseInt(session.getId());// 将生成的ID填入sessionID用做辨别同用户的不同会话
+        this.userSessionID = session.getId();// 将生成的ID填入sessionID用做辨别同用户的不同会话
         sessionState = SessionState.LogingIn;
         tempSessionPool.put(session.getId(), this); // 刚连接放入temp池
     }

@@ -34,7 +34,7 @@ public class MsgLogin extends MessageBase {
 
     private void studentLogin(JSONObject jsonObject, S2CSession session) {
         String userid = jsonObject.getString("userid");
-        String pwd = jsonObject.getString("passward");
+        String pwd = jsonObject.getString("password");
         Student student = new Student();
         student.setSno(userid);
         student = student.selectOne(new EntityWrapper<Student>().eq("sname",userid));
@@ -59,7 +59,7 @@ public class MsgLogin extends MessageBase {
     }
     private void consultantLogin(JSONObject jsonObject, S2CSession session) {
         String userid = jsonObject.getString("userid");
-        String pwd = jsonObject.getString("passward");
+        String pwd = jsonObject.getString("password");
         Consultant consultant = new Consultant();
         consultant.setCno(userid);
         consultant.selectOne(new EntityWrapper<Student>().eq("sname",userid));
@@ -83,7 +83,7 @@ public class MsgLogin extends MessageBase {
     }
     private void instructorLogin(JSONObject jsonObject, S2CSession session) {
         String userid = jsonObject.getString("userid");
-        String pwd = jsonObject.getString("passward");
+        String pwd = jsonObject.getString("password");
         Instructor instructor = new Instructor();
         instructor.setIno(userid);
         instructor.selectOne(new EntityWrapper<Student>().eq("sname",userid));
