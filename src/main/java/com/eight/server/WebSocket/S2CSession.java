@@ -7,6 +7,7 @@ import com.eight.server.Scheduler.Scheduler;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
@@ -49,7 +50,7 @@ public class S2CSession {
     }
 
     @SuppressWarnings("unchecked")
-    private MessageBase str2DTO(String str) throws IOException{
+    private MessageBase str2DTO(String str) throws IOException, JSONException {
         if (!isjson(str)) {
             return null;
         }
@@ -67,7 +68,7 @@ public class S2CSession {
         }catch (ClassNotFoundException e) {
             e.printStackTrace();
         }catch (InstantiationException e) {
-
+            e.printStackTrace();
         }catch (IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -109,10 +110,20 @@ public class S2CSession {
             content = str2DTO(message);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            System.out.println("userId: " + userid + " 's message has a error filed");
+            return;
         }
         if (content != null) {
-            content.handleMessage(this);
-            System.out.println(content.toString());
+            try {
+                content.handleMessage(this);
+                System.out.println(content.toString());
+            } catch (JSONException e){
+                e.printStackTrace();
+                System.out.println(message + ": caused some error.");
+            }
+
         }
     }
 

@@ -97,6 +97,7 @@ public class MsgLogin extends MessageBase {
             temp.put("result", true);
             MsgLoginRsp msgLoginRsp = new MsgLoginRsp(this.getId() + 1, temp.toString());
             session.sendMessage(msgLoginRsp.toJson());
+            // todo 检查今天日期，如果是规定的某个日期，并且导员所属的院校有高危学生，发送一条推送消息
         }else {
             JSONObject temp = new JSONObject();
             temp.put("userid", userid);
