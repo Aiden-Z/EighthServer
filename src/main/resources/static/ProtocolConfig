@@ -8,5 +8,7 @@
   "12": "com.eight.server.Message.MsgScaleResult",
   "14": "com.eight.server.Message.MsgQueryStudent",
   "16": "com.eight.server.Message.MsgConsultResult",
-  "18": "com.eight.server.Message.MsgQueryConsult"
+  "18": "com.eight.server.Message.MsgQueryConsult",
+  "20": "com.eight.server.Message.MsgExamineResult",
+  "22": "com.eight.server.Message.MsgRequestExamine"
 }

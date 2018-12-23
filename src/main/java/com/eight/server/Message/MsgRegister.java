@@ -37,7 +37,7 @@ public class MsgRegister extends MessageBase{
         String pwd = jsonObject.getString("password");
         Student student = new Student();
         student.setSno(userid);
-        student = student.selectOne(new EntityWrapper<Student>().eq("sname",userid));
+        student = student.selectOne(new EntityWrapper<Student>().eq("sno",userid));
         JSONObject temp = new JSONObject();
         if (student == null) {
             temp.put("userid", userid);

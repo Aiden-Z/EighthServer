@@ -94,7 +94,7 @@ public class S2CSession {
 
     @OnOpen
     public void open (Session session) {
-        System.out.println("userid : " + session.getId() + " connected");
+        System.out.println("user id: " + session.getId() + " connected");
         this.session = session;
         this.userid = session.getId();// 先用session的id暂时代替用户id
         this.userSessionID = session.getId();// 将生成的ID填入sessionID用做辨别同用户的不同会话
@@ -110,16 +110,16 @@ public class S2CSession {
             content = str2DTO(message);
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("userId: " + userid + " 's message has a error filed");
+            System.out.println("user id: " + userid + " 's message has a error filed");
             return;
         }
         if (content != null) {
             try {
                 content.handleMessage(this);
                 System.out.println(content.toString());
-            } catch (JSONException e){
+            } catch (Exception e){
                 e.printStackTrace();
                 System.out.println(message + ": caused some error.");
             }

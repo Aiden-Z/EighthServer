@@ -40,8 +40,8 @@ public class MsgConsultResult extends MessageBase {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(Long.toString(date.getTime()));
         stringBuilder.append(sno);
-        if (stringBuilder.length() > 15) {
-            stringBuilder.substring(15, stringBuilder.length());
+        if (stringBuilder.length() > 14) {
+            stringBuilder.substring(14, stringBuilder.length());
         }
         String recordNo = stringBuilder.toString();
 
