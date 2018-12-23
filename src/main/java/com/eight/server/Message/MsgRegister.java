@@ -64,7 +64,7 @@ public class MsgRegister extends MessageBase{
         String pwd = jsonObject.getString("password");
         Consultant consultant = new Consultant();
         consultant.setCno(userid);
-        consultant = consultant.selectOne(new EntityWrapper<Consultant>().eq("Cname",userid));
+        consultant = consultant.selectOne(new EntityWrapper<Consultant>().eq("cno",userid));
         JSONObject temp = new JSONObject();
         if (consultant == null) {
             temp.put("userid", userid);
@@ -89,7 +89,7 @@ public class MsgRegister extends MessageBase{
         String pwd = jsonObject.getString("password");
         Instructor instructor = new Instructor();
         instructor.setIno(userid);
-        instructor = instructor.selectOne(new EntityWrapper<Consultant>().eq("Cname",userid));
+        instructor = instructor.selectOne(new EntityWrapper<Consultant>().eq("ino",userid));
         JSONObject temp = new JSONObject();
         if (instructor == null) {
             temp.put("userid", userid);

@@ -48,10 +48,11 @@ public class MsgExamineResult extends MessageBase {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(Long.toString(date.getTime()));
         stringBuilder.append(sno);
-        if (stringBuilder.length() > 14) {
-            stringBuilder.substring(14, stringBuilder.length());
-        }
         String eno = stringBuilder.toString();
+        if (stringBuilder.length() > 14) {
+            eno = stringBuilder.substring(0, 14);
+        }
+
         Examine examine = new Examine();
         examine.setEno(eno);
         examine.setSno(sno);

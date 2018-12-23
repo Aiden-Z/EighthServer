@@ -57,11 +57,11 @@ public class PsychScaleCache {
             String key = keys.next();
             JSONObject object = jsonObject.getJSONObject(key);
             ArrayList<PsychQuestion> questionArrayList = new ArrayList<>();
-            JSONArray objects = object.getJSONArray("questions");
+            JSONArray objects = object.getJSONArray("psychQuestions");
             for (int i = 0; i < objects.length(); i++) {
                 questionArrayList.add(new PsychQuestion(objects.getJSONObject(i).getString("questionContent")));
             }
-            PsychScale psychScale = new PsychScale(key, object.getString("name"), object.getString("desc"), object.getString("type"), questionArrayList);
+            PsychScale psychScale = new PsychScale(key, object.getString("name"), object.getString("psychScaleDescription"), object.getString("type"), questionArrayList);
             psychScaleCache.put(key, psychScale);
         }
     }

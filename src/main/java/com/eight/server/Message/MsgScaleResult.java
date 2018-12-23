@@ -20,10 +20,10 @@ public class MsgScaleResult extends MessageBase {// 填写量表结果
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(Long.toString(date.getTime()));
         stringBuilder.append(sno);
-        if (stringBuilder.length() > 14) {
-            stringBuilder.substring(14, stringBuilder.length());
-        }
         String testNo = stringBuilder.toString();
+        if (stringBuilder.length() > 14) {
+            testNo = stringBuilder.substring(0, 14);
+        }
         List<Object> tempArr = jsonObject.getJSONArray("sum").toList();
         List<Integer> sumArr = new ArrayList<>();
         for (int i = 0; i < tempArr.size(); i++) {
@@ -39,11 +39,11 @@ public class MsgScaleResult extends MessageBase {// 填写量表结果
         test.setTscore(score);
         test.setTresult(testResult);
         test.setTtime(date);
-        test.insertOrUpdate();
+        test.insert();
         Student student = new Student();
         student.setSno(sno);
-        student = student.selectOne(new EntityWrapper<Student>().eq("sname",sno));
-        student.setSclass(classes[100 / score]);
+        student = student.selectOne(new EntityWrapper<Student>().eq("sno",sno));
+        student.setSclass(classes[score / 100]);
         JSONObject result = new JSONObject();
         result.put("result", true);
         MsgScaleResultRsp msgScaleResultRsp = new MsgScaleResultRsp(getId() + 1, result.toString());

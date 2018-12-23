@@ -1,5 +1,6 @@
 package com.eight.server.Message;
 
+import com.eight.server.Database.entity.Scale;
 import com.eight.server.PsychTest.PsychScale;
 import com.eight.server.PsychTest.PsychScaleCache;
 import com.eight.server.WebSocket.S2CSession;
@@ -17,11 +18,19 @@ public class MsgAddScale extends MessageBase {
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         PsychScale psychScale = null;
         try {
-            psychScale = mapper.readValue(jsonObject.getString("scale"), PsychScale.class);
+            psychScale = mapper.readValue(jsonObject.getJSONObject("scale").toString(), PsychScale.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        PsychScaleCache.getInstance().addPsychScale(psychScale);
-        PsychScaleCache.getInstance().saveFile();
+        if (psychScale != null) {
+            Scale scale = new Scale();
+            scale.setScno(psychScale.getIdentifier());
+            scale.setScname(psychScale.getName());
+            scale.setScdescribe(psychScale.getPsychScaleDescription());
+            scale.setSctype(psychScale.getType());
+            scale.insert();
+            PsychScaleCache.getInstance().addPsychScale(psychScale);
+            PsychScaleCache.getInstance().saveFile();
+        }
     }
 }

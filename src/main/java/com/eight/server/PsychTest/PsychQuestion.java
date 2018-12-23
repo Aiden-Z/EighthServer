@@ -7,6 +7,9 @@ public class PsychQuestion {// 单个选择题
         this.questionContent = questionContent;
     }
 
+    public PsychQuestion() {
+    }
+
     public String getQuestionContent() {
         return questionContent;
     }

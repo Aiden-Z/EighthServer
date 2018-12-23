@@ -40,10 +40,10 @@ public class MsgConsultResult extends MessageBase {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(Long.toString(date.getTime()));
         stringBuilder.append(sno);
-        if (stringBuilder.length() > 14) {
-            stringBuilder.substring(14, stringBuilder.length());
-        }
         String recordNo = stringBuilder.toString();
+        if (stringBuilder.length() > 14) {
+            recordNo = stringBuilder.substring(0, 14);
+        }
 
         Consult consult = new Consult();
         consult.setCno(cno);
