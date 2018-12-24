@@ -43,7 +43,11 @@ public class MsgScaleResult extends MessageBase {// 填写量表结果
         Student student = new Student();
         student.setSno(sno);
         student = student.selectOne(new EntityWrapper<Student>().eq("sno",sno));
-        student.setSclass(classes[score / 100]);
+        int index = score / 25;
+        if (index >= 4) {
+            index = 3;
+        }
+        student.setSclass(classes[index]);
         JSONObject result = new JSONObject();
         result.put("result", true);
         MsgScaleResultRsp msgScaleResultRsp = new MsgScaleResultRsp(getId() + 1, result.toString());
