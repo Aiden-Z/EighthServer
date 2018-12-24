@@ -33,32 +33,7 @@ public class MsgConsultResult extends MessageBase {
     }
 
     private void handleStudent(JSONObject jsonObject, S2CSession s2CSession) {
-        Date date = new Date();
-        String sno = jsonObject.getString("studentNo");
-        String cno = jsonObject.getString("consultantNo");
-        String consultContent = jsonObject.getString("consultContent");
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(Long.toString(date.getTime()));
-        stringBuilder.append(sno);
-        String recordNo = stringBuilder.toString();
-        if (stringBuilder.length() > 14) {
-            recordNo = stringBuilder.substring(0, 14);
-        }
 
-        Consult consult = new Consult();
-        consult.setCno(cno);
-        consult.setSno(sno);
-        consult.setRecordno(recordNo);
-        consult.setConsulttime(date);
-        consult.setConsultresult(consultContent);
-        consult.insert();
-        JSONObject result = new JSONObject();
-        result.put("studentNo", sno);
-        result.put("consultantNo", cno);
-        result.put("result", true);
-
-        MsgConsultResultRsp msgConsultResultRsp = new MsgConsultResultRsp(getId() + 1, result.toString());
-        s2CSession.sendMessage(msgConsultResultRsp.toJson());
     }
 
     private void handleConsultant(JSONObject jsonObject, S2CSession s2CSession) {
