@@ -1,8 +1,9 @@
 package com.eight.server.Database.entity;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import java.time.LocalDateTime;
 import java.io.Serializable;
 
 /**
@@ -10,8 +11,8 @@ import java.io.Serializable;
  * 测试基本表
  * </p>
  *
- * @author stylefeng
- * @since 2018-12-18
+ * @author Aiden_Z
+ * @since 2018-12-28
  */
 @TableName("db_test")
 public class Test extends Model<Test> {
@@ -21,32 +22,38 @@ public class Test extends Model<Test> {
     /**
      * 测试编号
      */
+    @TableId
     private String tno;
+
     /**
      * 来访者编号
      */
     private String sno;
+
     /**
      * 咨询师编号
      */
     private String cno;
+
     /**
      * 量表编号
      */
     private String scno;
+
     /**
      * 测试分数
      */
     private Integer tscore;
+
     /**
      * 测试结果
      */
     private String tresult;
+
     /**
      * 测试时间
      */
-    private Date ttime;
-
+    private LocalDateTime ttime;
 
     public String getTno() {
         return tno;
@@ -55,7 +62,6 @@ public class Test extends Model<Test> {
     public void setTno(String tno) {
         this.tno = tno;
     }
-
     public String getSno() {
         return sno;
     }
@@ -63,7 +69,6 @@ public class Test extends Model<Test> {
     public void setSno(String sno) {
         this.sno = sno;
     }
-
     public String getCno() {
         return cno;
     }
@@ -71,7 +76,6 @@ public class Test extends Model<Test> {
     public void setCno(String cno) {
         this.cno = cno;
     }
-
     public String getScno() {
         return scno;
     }
@@ -79,7 +83,6 @@ public class Test extends Model<Test> {
     public void setScno(String scno) {
         this.scno = scno;
     }
-
     public Integer getTscore() {
         return tscore;
     }
@@ -87,7 +90,6 @@ public class Test extends Model<Test> {
     public void setTscore(Integer tscore) {
         this.tscore = tscore;
     }
-
     public String getTresult() {
         return tresult;
     }
@@ -95,12 +97,11 @@ public class Test extends Model<Test> {
     public void setTresult(String tresult) {
         this.tresult = tresult;
     }
-
-    public Date getTtime() {
+    public LocalDateTime getTtime() {
         return ttime;
     }
 
-    public void setTtime(Date ttime) {
+    public void setTtime(LocalDateTime ttime) {
         this.ttime = ttime;
     }
 

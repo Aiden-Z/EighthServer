@@ -1,11 +1,12 @@
 package com.eight.server.Message;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.eight.server.Database.entity.Examine;
 import com.eight.server.WebSocket.S2CSession;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class MsgExamineResult extends MessageBase {
@@ -21,16 +22,16 @@ public class MsgExamineResult extends MessageBase {
     }
 
     private void handleConsultant(JSONObject jsonObject, S2CSession session) {
-        Date date = new Date();
+        LocalDateTime date = LocalDateTime.now();
         String sno = jsonObject.getString("studentNo");
         String feedback = jsonObject.getString("feedbackResult");
         String eno = jsonObject.getString("examineNo");
         Examine examine = new Examine();
-        examine = examine.selectOne(new EntityWrapper<Examine>().eq("eno", eno));
+        examine = examine.selectOne(new QueryWrapper<Examine>().eq("eno", eno));
         if (examine != null) {
             examine.setFeedbackresult(feedback);
             examine.setFeedbacktime(date);
-            examine.update(new EntityWrapper<Examine>().eq("eno", eno));
+            examine.update(new QueryWrapper<Examine>().eq("eno", eno));
             JSONObject result = new JSONObject();
             result.put("studentNo", sno);
             result.put("result", true);
@@ -40,13 +41,13 @@ public class MsgExamineResult extends MessageBase {
     }
 
     private void handleInstructor(JSONObject jsonObject, S2CSession session) {
-        Date date = new Date();
+        LocalDateTime date = LocalDateTime.now();
         String sno = jsonObject.getString("studentNo");
         String cno = jsonObject.getString("consultantNo");
         String ino = jsonObject.getString("instructorNo");
         String eDept = jsonObject.getString("dept");
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(Long.toString(date.getTime()));
+        stringBuilder.append(date.toString());
         stringBuilder.append(sno);
         String eno = stringBuilder.toString();
         if (stringBuilder.length() > 14) {

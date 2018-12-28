@@ -1,6 +1,6 @@
 package com.eight.server.Message;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.eight.server.Database.entity.Consult;
 import com.eight.server.Database.entity.Test;
 import com.eight.server.WebSocket.S2CSession;
@@ -32,7 +32,7 @@ public class MsgQueryTest extends MessageBase { // 用于查询测试结果
     private void handleStudent(JSONObject jsonObject, S2CSession session) {
         String sno = jsonObject.getString("studentNo");
         Test test = new Test();
-        List<Test> tests = test.selectList(new EntityWrapper<Test>().eq("sno", sno));
+        List<Test> tests = test.selectList(new QueryWrapper<Test>().eq("sno", sno));
         JSONObject result = new JSONObject();
         result.put("studentNo", sno);
         result.put("tests", tests);
@@ -44,7 +44,7 @@ public class MsgQueryTest extends MessageBase { // 用于查询测试结果
     private void handleConsultant(JSONObject jsonObject, S2CSession session) {
         String consultantNo = jsonObject.getString("consultantNo");
         Consult consult = new Consult();
-        List<Consult> consults = consult.selectList(new EntityWrapper<Consult>().eq("cno", consultantNo)); // 拿到该咨询师全部记录
+        List<Consult> consults = consult.selectList(new QueryWrapper<Consult>().eq("cno", consultantNo)); // 拿到该咨询师全部记录
         Set<String> students = new HashSet<>();
         for (int i = 0; i < consults.size(); i++) {
             if (consults.get(i).getCno().equals(consultantNo)) {
@@ -52,7 +52,7 @@ public class MsgQueryTest extends MessageBase { // 用于查询测试结果
             }
         }
         Test test = new Test();
-        List<Test> tests = test.selectList(new EntityWrapper<Test>().eq("cno", consultantNo));
+        List<Test> tests = test.selectList(new QueryWrapper<Test>().eq("cno", consultantNo));
         tests.removeIf(t->!students.contains(t.getSno()));
         JSONObject result = new JSONObject();
         result.put("consultantNo", consultantNo);

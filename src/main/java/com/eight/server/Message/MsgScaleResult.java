@@ -1,11 +1,14 @@
 package com.eight.server.Message;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.eight.server.Database.entity.Student;
 import com.eight.server.Database.entity.Test;
 import com.eight.server.WebSocket.S2CSession;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,11 +17,11 @@ public class MsgScaleResult extends MessageBase {// 填写量表结果
     private static final String[] classes = {"普通","严重","障碍","高危"};
     @Override
     public void handleMessage(S2CSession s2CSession) {
-        Date date = new Date();
+        LocalDateTime date = LocalDateTime.now();
         JSONObject jsonObject = new JSONObject(getContent());
         String sno = jsonObject.getString("studentNo");
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(Long.toString(date.getTime()));
+        stringBuilder.append(date.toString());
         stringBuilder.append(sno);
         String testNo = stringBuilder.toString();
         if (stringBuilder.length() > 14) {
@@ -42,7 +45,7 @@ public class MsgScaleResult extends MessageBase {// 填写量表结果
         test.insert();
         Student student = new Student();
         student.setSno(sno);
-        student = student.selectOne(new EntityWrapper<Student>().eq("sno",sno));
+        student = student.selectOne(new QueryWrapper<Student>().eq("sno",sno));
         int index = score / 25;
         if (index >= 4) {
             index = 3;

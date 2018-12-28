@@ -1,7 +1,8 @@
 package com.eight.server.Database.entity;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 
 /**
@@ -9,8 +10,8 @@ import java.io.Serializable;
  * 量表基本表
  * </p>
  *
- * @author stylefeng
- * @since 2018-12-18
+ * @author Aiden_Z
+ * @since 2018-12-28
  */
 @TableName("db_scale")
 public class Scale extends Model<Scale> {
@@ -20,20 +21,23 @@ public class Scale extends Model<Scale> {
     /**
      * 量表编号
      */
+    @TableId
     private String scno;
+
     /**
      * 名称
      */
     private String scname;
+
     /**
      * 描述
      */
     private String scdescribe;
+
     /**
      * 类别
      */
     private String sctype;
-
 
     public String getScno() {
         return scno;
@@ -42,7 +46,6 @@ public class Scale extends Model<Scale> {
     public void setScno(String scno) {
         this.scno = scno;
     }
-
     public String getScname() {
         return scname;
     }
@@ -50,7 +53,6 @@ public class Scale extends Model<Scale> {
     public void setScname(String scname) {
         this.scname = scname;
     }
-
     public String getScdescribe() {
         return scdescribe;
     }
@@ -58,7 +60,6 @@ public class Scale extends Model<Scale> {
     public void setScdescribe(String scdescribe) {
         this.scdescribe = scdescribe;
     }
-
     public String getSctype() {
         return sctype;
     }

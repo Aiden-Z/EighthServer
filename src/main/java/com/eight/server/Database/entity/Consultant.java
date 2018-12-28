@@ -1,7 +1,8 @@
 package com.eight.server.Database.entity;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 
 /**
@@ -9,8 +10,8 @@ import java.io.Serializable;
  * 咨询师基本表
  * </p>
  *
- * @author stylefeng
- * @since 2018-12-20
+ * @author Aiden_Z
+ * @since 2018-12-28
  */
 @TableName("db_consultant")
 public class Consultant extends Model<Consultant> {
@@ -20,24 +21,28 @@ public class Consultant extends Model<Consultant> {
     /**
      * 咨询师编号
      */
+    @TableId
     private String cno;
+
     /**
      * 姓名
      */
     private String cname;
+
     /**
      * 联系方式
      */
     private String cphone;
+
     /**
      * 等级
      */
     private String cclass;
+
     /**
      * 密码
      */
     private String cpwd;
-
 
     public String getCno() {
         return cno;
@@ -46,7 +51,6 @@ public class Consultant extends Model<Consultant> {
     public void setCno(String cno) {
         this.cno = cno;
     }
-
     public String getCname() {
         return cname;
     }
@@ -54,7 +58,6 @@ public class Consultant extends Model<Consultant> {
     public void setCname(String cname) {
         this.cname = cname;
     }
-
     public String getCphone() {
         return cphone;
     }
@@ -62,7 +65,6 @@ public class Consultant extends Model<Consultant> {
     public void setCphone(String cphone) {
         this.cphone = cphone;
     }
-
     public String getCclass() {
         return cclass;
     }
@@ -70,7 +72,6 @@ public class Consultant extends Model<Consultant> {
     public void setCclass(String cclass) {
         this.cclass = cclass;
     }
-
     public String getCpwd() {
         return cpwd;
     }

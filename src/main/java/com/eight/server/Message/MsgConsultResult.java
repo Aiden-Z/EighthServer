@@ -1,11 +1,10 @@
 package com.eight.server.Message;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.eight.server.Database.entity.Consult;
 import com.eight.server.WebSocket.S2CSession;
 import org.json.JSONObject;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,11 +42,11 @@ public class MsgConsultResult extends MessageBase {
         String consultResult = jsonObject.getString("consultContent");
 
         Consult consult = new Consult();
-        List<Consult> consults = consult.selectList(new EntityWrapper<Consult>().eq("recordno", recordNo));
+        List<Consult> consults = consult.selectList(new QueryWrapper<Consult>().eq("recordno", recordNo));
         if (consults.size() == 1) { // 一般情况下同个编号只有一个咨询记录，但是不排除非正常情况下出现问题
             consult = consults.get(0);
             consult.setConsultresult(consultResult);
-            consult.update(new EntityWrapper<Consult>().eq("recordno", recordNo));
+            consult.update(new QueryWrapper<Consult>().eq("recordno", recordNo));
             JSONObject result = new JSONObject();
             result.put("studentNo", sno);
             result.put("consultantNo", cno);

@@ -1,6 +1,6 @@
 package com.eight.server.Message;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.eight.server.Database.entity.Consultant;
 import com.eight.server.Database.entity.Instructor;
 import com.eight.server.Database.entity.Student;
@@ -37,7 +37,7 @@ public class MsgRegister extends MessageBase{
         String pwd = jsonObject.getString("password");
         Student student = new Student();
         student.setSno(userid);
-        student = student.selectOne(new EntityWrapper<Student>().eq("sno",userid));
+        student = student.selectOne(new QueryWrapper<Student>().eq("sno", userid));
         JSONObject temp = new JSONObject();
         if (student == null) {
             temp.put("userid", userid);
@@ -64,7 +64,7 @@ public class MsgRegister extends MessageBase{
         String pwd = jsonObject.getString("password");
         Consultant consultant = new Consultant();
         consultant.setCno(userid);
-        consultant = consultant.selectOne(new EntityWrapper<Consultant>().eq("cno",userid));
+        consultant = consultant.selectOne(new QueryWrapper<Consultant>().eq("cno",userid));
         JSONObject temp = new JSONObject();
         if (consultant == null) {
             temp.put("userid", userid);
@@ -89,7 +89,7 @@ public class MsgRegister extends MessageBase{
         String pwd = jsonObject.getString("password");
         Instructor instructor = new Instructor();
         instructor.setIno(userid);
-        instructor = instructor.selectOne(new EntityWrapper<Consultant>().eq("ino",userid));
+        instructor = instructor.selectOne(new QueryWrapper<Instructor>().eq("ino",userid));
         JSONObject temp = new JSONObject();
         if (instructor == null) {
             temp.put("userid", userid);

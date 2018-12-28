@@ -1,8 +1,9 @@
 package com.eight.server.Database.entity;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import java.time.LocalDateTime;
 import java.io.Serializable;
 
 /**
@@ -10,8 +11,8 @@ import java.io.Serializable;
  * 咨询基本表
  * </p>
  *
- * @author stylefeng
- * @since 2018-12-18
+ * @author Aiden_Z
+ * @since 2018-12-27
  */
 @TableName("db_consult")
 public class Consult extends Model<Consult> {
@@ -21,24 +22,28 @@ public class Consult extends Model<Consult> {
     /**
      * 咨询记录编号
      */
+    @TableId
     private String recordno;
+
     /**
      * 来访者编号
      */
     private String sno;
+
     /**
      * 咨询师编号
      */
     private String cno;
+
     /**
      * 咨询时间
      */
-    private Date consulttime;
+    private LocalDateTime consulttime;
+
     /**
      * 咨询结果
      */
     private String consultresult;
-
 
     public String getRecordno() {
         return recordno;
@@ -47,7 +52,6 @@ public class Consult extends Model<Consult> {
     public void setRecordno(String recordno) {
         this.recordno = recordno;
     }
-
     public String getSno() {
         return sno;
     }
@@ -55,7 +59,6 @@ public class Consult extends Model<Consult> {
     public void setSno(String sno) {
         this.sno = sno;
     }
-
     public String getCno() {
         return cno;
     }
@@ -63,15 +66,13 @@ public class Consult extends Model<Consult> {
     public void setCno(String cno) {
         this.cno = cno;
     }
-
-    public Date getConsulttime() {
+    public LocalDateTime getConsulttime() {
         return consulttime;
     }
 
-    public void setConsulttime(Date consulttime) {
+    public void setConsulttime(LocalDateTime consulttime) {
         this.consulttime = consulttime;
     }
-
     public String getConsultresult() {
         return consultresult;
     }

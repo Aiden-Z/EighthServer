@@ -1,8 +1,9 @@
 package com.eight.server.Database.entity;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import java.time.LocalDateTime;
 import java.io.Serializable;
 
 /**
@@ -10,8 +11,8 @@ import java.io.Serializable;
  * 月排查表基本表
  * </p>
  *
- * @author stylefeng
- * @since 2018-12-18
+ * @author Aiden_Z
+ * @since 2018-12-28
  */
 @TableName("db_examine")
 public class Examine extends Model<Examine> {
@@ -21,40 +22,48 @@ public class Examine extends Model<Examine> {
     /**
      * 月排查表编号
      */
+    @TableId
     private String eno;
+
     /**
      * 来访者编号
      */
     private String sno;
+
     /**
      * 咨询师编号
      */
     private String cno;
+
     /**
      * 辅导员编号
      */
     private String ino;
+
     /**
      * 院系
      */
     private String edept;
+
     /**
      * 排查时间
      */
-    private Date etime;
+    private LocalDateTime etime;
+
     /**
      * 排查结果
      */
     private String eresult;
+
     /**
      * 咨询师反馈时间
      */
-    private Date feedbacktime;
+    private LocalDateTime feedbacktime;
+
     /**
      * 咨询师反馈结果
      */
     private String feedbackresult;
-
 
     public String getEno() {
         return eno;
@@ -63,7 +72,6 @@ public class Examine extends Model<Examine> {
     public void setEno(String eno) {
         this.eno = eno;
     }
-
     public String getSno() {
         return sno;
     }
@@ -71,7 +79,6 @@ public class Examine extends Model<Examine> {
     public void setSno(String sno) {
         this.sno = sno;
     }
-
     public String getCno() {
         return cno;
     }
@@ -79,7 +86,6 @@ public class Examine extends Model<Examine> {
     public void setCno(String cno) {
         this.cno = cno;
     }
-
     public String getIno() {
         return ino;
     }
@@ -87,7 +93,6 @@ public class Examine extends Model<Examine> {
     public void setIno(String ino) {
         this.ino = ino;
     }
-
     public String getEdept() {
         return edept;
     }
@@ -95,15 +100,13 @@ public class Examine extends Model<Examine> {
     public void setEdept(String edept) {
         this.edept = edept;
     }
-
-    public Date getEtime() {
+    public LocalDateTime getEtime() {
         return etime;
     }
 
-    public void setEtime(Date etime) {
+    public void setEtime(LocalDateTime etime) {
         this.etime = etime;
     }
-
     public String getEresult() {
         return eresult;
     }
@@ -111,15 +114,13 @@ public class Examine extends Model<Examine> {
     public void setEresult(String eresult) {
         this.eresult = eresult;
     }
-
-    public Date getFeedbacktime() {
+    public LocalDateTime getFeedbacktime() {
         return feedbacktime;
     }
 
-    public void setFeedbacktime(Date feedbacktime) {
+    public void setFeedbacktime(LocalDateTime feedbacktime) {
         this.feedbacktime = feedbacktime;
     }
-
     public String getFeedbackresult() {
         return feedbackresult;
     }

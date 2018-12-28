@@ -1,7 +1,8 @@
 package com.eight.server.Database.entity;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 
 /**
@@ -9,8 +10,8 @@ import java.io.Serializable;
  * 来访者基本表
  * </p>
  *
- * @author stylefeng
- * @since 2018-12-20
+ * @author Aiden_Z
+ * @since 2018-12-28
  */
 @TableName("db_student")
 public class Student extends Model<Student> {
@@ -20,36 +21,43 @@ public class Student extends Model<Student> {
     /**
      * 来访者编号
      */
+    @TableId
     private String sno;
+
     /**
      * 姓名
      */
     private String sname;
+
     /**
      * 院系
      */
     private String sdept;
+
     /**
      * 联系方式
      */
     private String sphone;
+
     /**
      * 等级
      */
     private String sclass;
+
     /**
      * 紧急联系人
      */
     private String scon;
+
     /**
      * 紧急联系人联系方式
      */
     private String sconph;
+
     /**
      * 密码
      */
     private String spwd;
-
 
     public String getSno() {
         return sno;
@@ -58,7 +66,6 @@ public class Student extends Model<Student> {
     public void setSno(String sno) {
         this.sno = sno;
     }
-
     public String getSname() {
         return sname;
     }
@@ -66,7 +73,6 @@ public class Student extends Model<Student> {
     public void setSname(String sname) {
         this.sname = sname;
     }
-
     public String getSdept() {
         return sdept;
     }
@@ -74,7 +80,6 @@ public class Student extends Model<Student> {
     public void setSdept(String sdept) {
         this.sdept = sdept;
     }
-
     public String getSphone() {
         return sphone;
     }
@@ -82,7 +87,6 @@ public class Student extends Model<Student> {
     public void setSphone(String sphone) {
         this.sphone = sphone;
     }
-
     public String getSclass() {
         return sclass;
     }
@@ -90,7 +94,6 @@ public class Student extends Model<Student> {
     public void setSclass(String sclass) {
         this.sclass = sclass;
     }
-
     public String getScon() {
         return scon;
     }
@@ -98,7 +101,6 @@ public class Student extends Model<Student> {
     public void setScon(String scon) {
         this.scon = scon;
     }
-
     public String getSconph() {
         return sconph;
     }
@@ -106,7 +108,6 @@ public class Student extends Model<Student> {
     public void setSconph(String sconph) {
         this.sconph = sconph;
     }
-
     public String getSpwd() {
         return spwd;
     }

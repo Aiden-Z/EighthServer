@@ -1,7 +1,6 @@
 package com.eight.server.Message;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.eight.server.Database.entity.Consult;
 import com.eight.server.WebSocket.S2CSession;
 import org.json.JSONObject;
@@ -16,11 +15,11 @@ public class MsgQueryConsult extends MessageBase {
     public void handleMessage(S2CSession s2CSession) {
         JSONObject jsonObject = new JSONObject(getContent());
         String type = jsonObject.getString("type");
-        Wrapper<Consult> wrapper = null;
+        QueryWrapper<Consult> wrapper = null;
         if (type.equals("student")) {
-            wrapper = new EntityWrapper<Consult>().eq("sno", jsonObject.getString("studentNo"));
+            wrapper = new QueryWrapper<Consult>().eq("sno", jsonObject.getString("studentNo"));
         }else if (type.equals("consultant")){
-            wrapper = new EntityWrapper<Consult>().eq("cno", jsonObject.getString("consultantNo"));
+            wrapper = new QueryWrapper<Consult>().eq("cno", jsonObject.getString("consultantNo"));
         }else {
             JSONObject result = new JSONObject();
             result.put("result", false);
