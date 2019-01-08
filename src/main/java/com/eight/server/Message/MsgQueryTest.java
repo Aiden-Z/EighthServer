@@ -31,8 +31,11 @@ public class MsgQueryTest extends MessageBase { // 用于查询测试结果
 
     private void handleStudent(JSONObject jsonObject, S2CSession session) {
         String sno = jsonObject.getString("studentNo");
+        String scno = jsonObject.getString("scaleNo");
         Test test = new Test();
-        List<Test> tests = test.selectList(new QueryWrapper<Test>().eq("sno", sno));
+        QueryWrapper<Test> queryWrapper = new QueryWrapper<>();
+        queryWrapper.and(q->q.eq("sno", sno).eq("scno", scno));
+        List<Test> tests = test.selectList(queryWrapper);
         JSONObject result = new JSONObject();
         result.put("studentNo", sno);
         result.put("tests", tests);
@@ -43,8 +46,11 @@ public class MsgQueryTest extends MessageBase { // 用于查询测试结果
 
     private void handleConsultant(JSONObject jsonObject, S2CSession session) {
         String consultantNo = jsonObject.getString("consultantNo");
+        String scno = jsonObject.getString("scaleNo");
         Consult consult = new Consult();
-        List<Consult> consults = consult.selectList(new QueryWrapper<Consult>().eq("cno", consultantNo)); // 拿到该咨询师全部记录
+        QueryWrapper<Consult> queryWrapper = new QueryWrapper<>();
+        queryWrapper.and(q->q.eq("cno", consultantNo).eq("scno", scno));
+        List<Consult> consults = consult.selectList(queryWrapper); // 拿到该咨询师全部记录
         Set<String> students = new HashSet<>();
         for (int i = 0; i < consults.size(); i++) {
             if (consults.get(i).getCno().equals(consultantNo)) {

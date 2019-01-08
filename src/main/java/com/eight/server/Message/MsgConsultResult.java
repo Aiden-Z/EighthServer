@@ -5,6 +5,8 @@ import com.eight.server.Database.entity.Consult;
 import com.eight.server.WebSocket.S2CSession;
 import org.json.JSONObject;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 /**
@@ -36,33 +38,28 @@ public class MsgConsultResult extends MessageBase {
     }
 
     private void handleConsultant(JSONObject jsonObject, S2CSession s2CSession) {
-        String recordNo = jsonObject.getString("recordNo");
+        LocalDateTime date = LocalDateTime.now();
         String sno = jsonObject.getString("studentNo");
         String cno = jsonObject.getString("consultantNo");
         String consultResult = jsonObject.getString("consultContent");
-
-        Consult consult = new Consult();
-        List<Consult> consults = consult.selectList(new QueryWrapper<Consult>().eq("recordno", recordNo));
-        if (consults.size() == 1) { // 一般情况下同个编号只有一个咨询记录，但是不排除非正常情况下出现问题
-            consult = consults.get(0);
-            consult.setConsultresult(consultResult);
-            consult.update(new QueryWrapper<Consult>().eq("recordno", recordNo));
-            JSONObject result = new JSONObject();
-            result.put("studentNo", sno);
-            result.put("consultantNo", cno);
-            result.put("result", true);
-
-            MsgConsultResultRsp msgConsultResultRsp = new MsgConsultResultRsp(getId() + 1, result.toString());
-            s2CSession.sendMessage(msgConsultResultRsp.toJson());
-        } else {
-            JSONObject result = new JSONObject();
-            result.put("studentNo", sno);
-            result.put("consultantNo", cno);
-            result.put("result", false);
-
-            MsgConsultResultRsp msgConsultResultRsp = new MsgConsultResultRsp(getId() + 1, result.toString());
-            s2CSession.sendMessage(msgConsultResultRsp.toJson());
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(date.now().toInstant(ZoneOffset.of("+8")).toEpochMilli());
+        stringBuilder.append(sno);
+        String recordNo = stringBuilder.toString();
+        if (stringBuilder.length() > 14) {
+            recordNo = stringBuilder.substring(0, 14);
         }
-
+        Consult consult = new Consult();
+        consult.setSno(sno);
+        consult.setCno(cno);
+        consult.setConsultresult(consultResult);
+        consult.setRecordno(recordNo);
+        consult.insert();
+        JSONObject result = new JSONObject();
+        result.put("studentNo", sno);
+        result.put("consultantNo", cno);
+        result.put("result", true);
+        MsgConsultResultRsp msgConsultResultRsp = new MsgConsultResultRsp(getId() + 1, result.toString());
+        s2CSession.sendMessage(msgConsultResultRsp.toJson());
     }
 }

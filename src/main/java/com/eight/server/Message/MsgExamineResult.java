@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 
 public class MsgExamineResult extends MessageBase {
@@ -47,7 +48,7 @@ public class MsgExamineResult extends MessageBase {
         String ino = jsonObject.getString("instructorNo");
         String eDept = jsonObject.getString("dept");
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(date.toString());
+        stringBuilder.append(date.now().toInstant(ZoneOffset.of("+8")).toEpochMilli());
         stringBuilder.append(sno);
         String eno = stringBuilder.toString();
         if (stringBuilder.length() > 14) {

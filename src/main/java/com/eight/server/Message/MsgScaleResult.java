@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +22,7 @@ public class MsgScaleResult extends MessageBase {// 填写量表结果
         JSONObject jsonObject = new JSONObject(getContent());
         String sno = jsonObject.getString("studentNo");
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(date.toString());
+        stringBuilder.append(date.now().toInstant(ZoneOffset.of("+8")).toEpochMilli());
         stringBuilder.append(sno);
         String testNo = stringBuilder.toString();
         if (stringBuilder.length() > 14) {
